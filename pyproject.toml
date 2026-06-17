@@ -1,0 +1,60 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "price-intelligence-platform"
+version = "0.1.0"
+description = "Async price intelligence and extraction platform with FastAPI, httpx, Playwright, and durable run history."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Tayyab Nasir" }]
+dependencies = [
+  "aiosqlite>=0.20.0",
+  "beautifulsoup4>=4.12.3",
+  "fastapi>=0.115.0",
+  "httpx>=0.27.2",
+  "playwright>=1.48.0",
+  "pydantic>=2.9.2",
+  "pydantic-settings>=2.6.1",
+  "SQLAlchemy>=2.0.35",
+  "uvicorn[standard]>=0.32.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "mypy>=1.11.2",
+  "pytest>=8.3.3",
+  "pytest-asyncio>=0.24.0",
+  "ruff>=0.7.1",
+  "types-beautifulsoup4>=4.12.0.20250516",
+]
+
+[project.scripts]
+price-intel-api = "price_intel.main:run"
+price-intel-worker = "price_intel.worker:run"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/price_intel"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "ASYNC", "N", "S"]
+ignore = ["S101", "S104", "S603", "S607"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+plugins = ["pydantic.mypy"]
+warn_unreachable = true
+disallow_any_generics = true
+exclude = ["tests"]

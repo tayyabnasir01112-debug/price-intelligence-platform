@@ -1,0 +1,31 @@
+{
+  "metadata": {
+    "source": "demo",
+    "purpose": "portfolio smoke test"
+  },
+  "targets": [
+    {
+      "name": "Example Product Page",
+      "url": "https://example.com",
+      "extractor": "http",
+      "selectors": [
+        {
+          "name": "title",
+          "css": "h1",
+          "required": true
+        },
+        {
+          "name": "links",
+          "css": "a",
+          "attr": "href",
+          "many": true
+        }
+      ],
+      "user_agents": [
+        "PriceIntelBot/0.1 (+https://github.com/tayyabnasir01112-debug)"
+      ],
+      "retry_budget": 2
+    }
+  ]
+}
+
